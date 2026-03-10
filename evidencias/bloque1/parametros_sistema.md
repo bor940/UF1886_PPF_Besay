@@ -247,4 +247,22 @@ fe43bdae44b0   postgres.db   0.00%     147.6MiB / 7.629GiB   1.89%     78.6MB / 
 
 ### Acceso a PostgreSQL 
 
+SELECT datname, numbackends 
+FROM pg_stat_database 
+ORDER BY numbackends DESC; 
+SELECT pid, usename, datname, state, wait_event_type, wait_event 
+FROM pg_stat_activity 
+ORDER BY state, datname; 
+SHOW max_connections; 
+SHOW shared_buffers; 
+SHOW work_mem; 
+
+# 5. Relación con Apache Hop
+
+### 5.1 Procesos de Hop / Java en el host
+
+Handles  NPM(K)    PM(K)      WS(K)     CPU(s)     Id  SI ProcessName
+-------  ------    -----      -----     ------     --  -- -----------
+   1704     123   667980     418076     115,38   9444  24 java
+    136       9     1728       9356       8,17  22128  24 java
 
