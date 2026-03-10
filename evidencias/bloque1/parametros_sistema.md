@@ -161,3 +161,90 @@ D:       248587726848  255374389248
 E:       74708594688   123983589376
 F:       888953098240  1000202653696
 G:       53957951488   61976608768
+
+# 2) Estado de Odoo y PostgreSQL en Docker 
+
+### 2.1 Ver contenedores activos 
+
+CONTAINER ID   IMAGE                COMMAND                  CREATED       STATUS       PORTS                                                                                      NAMES
+40de35eca7e8   odoo:18.0            "/usr/bin/odoo -c /e…"   2 hours ago   Up 2 hours   0.0.0.0:8001->8069/tcp, [::]:8001->8069/tcp, 0.0.0.0:8002->8072/tcp, [::]:8002->8072/tcp   odoo.18
+fe43bdae44b0   postgres:16-alpine   "docker-entrypoint.s…"   2 hours ago   Up 2 hours   0.0.0.0:5432->5432/tcp, [::]:5432->5432/tcp                                                postgres.db
+
+### 2.2 Ver consumo de recursos 
+CONTAINER ID   NAME          CPU %     MEM USAGE / LIMIT     MEM %     NET I/O           BLOCK I/O        PIDS
+40de35eca7e8   odoo.18       0.01%     356.1MiB / 7.629GiB   4.56%     82.7MB / 120MB    219MB / 52.2MB   6
+fe43bdae44b0   postgres.db   0.00%     147.6MiB / 7.629GiB   1.89%     78.6MB / 82.2MB   138MB / 468MB    12
+
+# 3) Revisión de logs básicos
+
+### Logs de Odoo
+
+2026-02-27 13:20:48,997 1 WARNING odoo odoo.http: <function odoo.addons.base_import.controllers.main.set_file> called ignoring args {'model', 'ufile'}
+2026-02-27 13:20:49,001 1 INFO odoo werkzeug: 172.19.0.1 - - [27/Feb/2026 13:20:49] "POST /base_import/set_file HTTP/1.1" 200 - 3 0.002 0.006
+2026-02-27 13:20:49,188 1 INFO odoo werkzeug: 172.19.0.1 - - [27/Feb/2026 13:20:49] "POST /web/dataset/call_kw/base_import.import/parse_preview HTTP/1.1" 200 - 39 0.063 0.119
+2026-02-27 13:20:57,228 1 INFO odoo werkzeug: 172.19.0.1 - - [27/Feb/2026 13:20:57] "POST /web/dataset/call_kw/base_import.import/parse_preview HTTP/1.1" 200 - 15 0.019 0.098
+2026-02-27 13:21:46,132 1 INFO odoo odoo.addons.base_import.models.base_import: importing 7 rows...
+2026-02-27 13:21:46,409 1 INFO odoo odoo.addons.base_import.models.base_import: done
+2026-02-27 13:21:46,412 1 INFO odoo werkzeug: 172.19.0.1 - - [27/Feb/2026 13:21:46] "POST /web/dataset/call_kw/base_import.import/execute_import HTTP/1.1" 200 - 88 0.155 0.152
+2026-02-27 13:21:46,522 1 INFO odoo werkzeug: 172.19.0.1 - - [27/Feb/2026 13:21:46] "POST /web/dataset/call_kw/product.template/fields_get HTTP/1.1" 200 - 55 0.036 0.034
+2026-02-27 13:22:31,824 1 INFO odoo odoo.addons.base_import.models.base_import: importing 7 rows...
+2026-02-27 13:22:32,239 1 INFO odoo odoo.addons.base_import.models.base_import: done
+2026-02-27 13:22:32,283 1 INFO odoo odoo.modules.registry: Caches invalidated, signaling through the database: ['default']
+2026-02-27 13:22:32,287 1 INFO odoo werkzeug: 172.19.0.1 - - [27/Feb/2026 13:22:32] "POST /web/dataset/call_kw/base_import.import/execute_import HTTP/1.1" 200 - 171 0.250 0.242
+2026-02-27 13:22:32,382 1 INFO odoo werkzeug: 172.19.0.1 - - [27/Feb/2026 13:22:32] "POST /web/dataset/call_kw/product.template/web_search_read HTTP/1.1" 200 - 36 0.025 0.025
+2026-02-27 13:24:33,741 1 INFO odoo werkzeug: 172.19.0.1 - - [27/Feb/2026 13:24:33] "GET /odoo/action-390 HTTP/1.1" 200 - 72 0.046 0.094
+2026-02-27 13:24:33,885 1 INFO odoo werkzeug: 172.19.0.1 - - [27/Feb/2026 13:24:33] "GET /web/manifest.webmanifest HTTP/1.1" 200 - 9 0.009 0.009
+2026-02-27 13:24:33,890 1 INFO odoo werkzeug: 172.19.0.1 - - [27/Feb/2026 13:24:33] "GET /bus/websocket_worker_bundle?v=18.0-7 HTTP/1.1" 304 - 3 0.002 0.005
+2026-02-27 13:24:33,995 1 INFO odoo werkzeug: 172.19.0.1 - - [27/Feb/2026 13:24:33] "GET /web/image?model=res.users&field=avatar_128&id=2 HTTP/1.1" 304 - 8 0.015 0.028
+2026-02-27 13:24:33,996 1 INFO odoo werkzeug: 172.19.0.1 - - [27/Feb/2026 13:24:33] "POST /web/action/load HTTP/1.1" 200 - 10 0.018 0.017
+2026-02-27 13:24:34,005 1 INFO odoo werkzeug: 172.19.0.1 - - [27/Feb/2026 13:24:34] "GET /websocket?version=18.0-7 HTTP/1.1" 101 - 1 0.003 0.019
+2026-02-27 13:24:34,012 1 INFO odoo werkzeug: 172.19.0.1 - - [27/Feb/2026 13:24:34] "POST /web/dataset/call_kw/mail.push.device/register_devices HTTP/1.1" 200 - 7 0.012 0.027
+2026-02-27 13:24:34,038 1 INFO odoo werkzeug: 172.19.0.1 - - [27/Feb/2026 13:24:34] "POST /mail/data HTTP/1.1" 200 - 26 0.029 0.040
+2026-02-27 13:24:34,087 1 INFO odoo werkzeug: 172.19.0.1 - - [27/Feb/2026 13:24:34] "POST /web/dataset/call_kw/product.template/get_views HTTP/1.1" 200 - 58 0.035 0.046
+2026-02-27 13:24:34,131 1 INFO odoo werkzeug: 172.19.0.1 - - [27/Feb/2026 13:24:34] "POST /web/dataset/call_kw/product.template/web_search_read HTTP/1.1" 200 - 16 0.015 0.016
+2026-02-27 13:24:35,617 1 INFO odoo werkzeug: 172.19.0.1 - - [27/Feb/2026 13:24:35] "GET /web/service-worker.js HTTP/1.1" 200 - 1 0.001 0.002
+2026-02-27 13:24:37,027 1 INFO odoo werkzeug: 172.19.0.1 - - [27/Feb/2026 13:24:37] "POST /web/dataset/call_kw/product.template/web_search_read HTTP/1.1" 200 - 16 0.012 0.014
+2026-02-27 13:24:54,004 1 INFO odoo werkzeug: 172.19.0.1 - - [27/Feb/2026 13:24:54] "POST /web/action/load HTTP/1.1" 200 - 9 0.005 0.006
+2026-02-27 13:24:54,280 1 INFO odoo werkzeug: 172.19.0.1 - - [27/Feb/2026 13:24:54] "POST /web/dataset/call_kw/res.config.settings/get_views HTTP/1.1" 200 - 407 0.143 0.120
+2026-02-27 13:24:54,355 1 INFO odoo werkzeug: 172.19.0.1 - - [27/Feb/2026 13:24:54] "POST /web/dataset/call_kw/res.config.settings/onchange HTTP/1.1" 200 - 145 0.033 0.026
+2026-02-27 13:24:54,447 1 INFO odoo werkzeug: 172.19.0.1 - - [27/Feb/2026 13:24:54] "POST /base_setup/demo_active HTTP/1.1" 200 - 2 0.002 0.004
+2026-02-27 13:24:54,473 1 INFO odoo werkzeug: 172.19.0.1 - - [27/Feb/2026 13:24:54] "POST /base_setup/data HTTP/1.1" 200 - 6 0.004 0.004
+2026-02-27 13:24:58,100 1 INFO odoo werkzeug: 172.19.0.1 - - [27/Feb/2026 13:24:58] "GET /odoo/settings?debug=1 HTTP/1.1" 200 - 19 0.011 0.015
+2026-02-27 13:24:58,188 1 INFO odoo werkzeug: 172.19.0.1 - - [27/Feb/2026 13:24:58] "GET /web/manifest.webmanifest HTTP/1.1" 200 - 7 0.004 0.006
+2026-02-27 13:24:58,199 1 INFO odoo werkzeug: 172.19.0.1 - - [27/Feb/2026 13:24:58] "GET /bus/websocket_worker_bundle?v=18.0-7 HTTP/1.1" 304 - 3 0.002 0.006
+2026-02-27 13:24:58,285 1 INFO odoo werkzeug: 172.19.0.1 - - [27/Feb/2026 13:24:58] "GET /web/image?model=res.users&field=avatar_128&id=2 HTTP/1.1" 304 - 8 0.017 0.013
+2026-02-27 13:24:58,298 1 INFO odoo werkzeug: 172.19.0.1 - - [27/Feb/2026 13:24:58] "GET /websocket?version=18.0-7 HTTP/1.1" 101 - 1 0.002 0.012
+2026-02-27 13:24:58,303 1 INFO odoo werkzeug: 172.19.0.1 - - [27/Feb/2026 13:24:58] "POST /web/action/load HTTP/1.1" 200 - 10 0.029 0.014
+2026-02-27 13:24:58,307 1 INFO odoo werkzeug: 172.19.0.1 - - [27/Feb/2026 13:24:58] "POST /web/dataset/call_kw/mail.push.device/register_devices HTTP/1.1" 200 - 6 0.009 0.020
+2026-02-27 13:24:58,317 1 INFO odoo werkzeug: 172.19.0.1 - - [27/Feb/2026 13:24:58] "POST /mail/data HTTP/1.1" 200 - 17 0.020 0.027
+
+
+### Logs de PostgreSQL 
+
+2026-03-05 09:56:09.786 UTC [1] LOG:  starting PostgreSQL 16.11 on x86_64-pc-linux-musl, compiled by gcc (Alpine 15.2.0) 15.2.0, 64-bit
+2026-03-05 09:56:09.786 UTC [1] LOG:  listening on IPv4 address "0.0.0.0", port 5432
+2026-03-05 09:56:09.786 UTC [1] LOG:  listening on IPv6 address "::", port 5432
+2026-03-05 09:56:09.831 UTC [1] LOG:  listening on Unix socket "/var/run/postgresql/.s.PGSQL.5432"
+2026-03-05 09:56:09.870 UTC [30] LOG:  database system was interrupted; last known up at 2026-02-27 13:54:50 UTC
+2026-03-05 09:56:10.116 UTC [31] FATAL:  the database system is starting up
+2026-03-05 09:56:11.119 UTC [32] FATAL:  the database system is starting up
+2026-03-05 09:56:11.622 UTC [30] LOG:  database system was not properly shut down; automatic recovery in progress
+2026-03-05 09:56:11.627 UTC [30] LOG:  redo starts at 0/82A95F0
+2026-03-05 09:56:11.627 UTC [30] LOG:  invalid record length at 0/82A96D8: expected at least 24, got 0
+2026-03-05 09:56:11.627 UTC [30] LOG:  redo done at 0/82A96A0 system usage: CPU: user: 0.00 s, system: 0.00 s, elapsed: 0.00 s
+2026-03-05 09:56:11.635 UTC [28] LOG:  checkpoint starting: end-of-recovery immediate wait
+2026-03-05 09:56:11.645 UTC [28] LOG:  checkpoint complete: wrote 2 buffers (0.0%); 0 WAL file(s) added, 0 removed, 0 recycled; write=0.003 s, sync=0.002 s, total=0.011 s; sync files=3, longest=0.001 s, average=0.001 s; distance=0 kB, estimate=0 kB; lsn=0/82A96D8, redo lsn=0/82A96D8
+2026-03-05 09:56:11.648 UTC [1] LOG:  database system is ready to accept connections
+2026-03-05 11:55:09.200 UTC [1] LOG:  received fast shutdown request
+2026-03-05 11:55:09.213 UTC [1] LOG:  aborting any active transactions
+2026-03-05 11:55:09.218 UTC [1] LOG:  background worker "logical replication launcher" (PID 35) exited with exit code 1
+2026-03-05 11:55:09.224 UTC [28] LOG:  shutting down
+2026-03-05 11:55:09.232 UTC [28] LOG:  checkpoint starting: shutdown immediate
+2026-03-05 11:55:09.275 UTC [28] LOG:  checkpoint complete: wrote 0 buffers (0.0%); 0 WAL file(s) added, 0 removed, 0 recycled; write=0.020 s, sync=0.001 s, total=0.051 s; sync files=0, longest=0.000 s, average=0.000 s; distance=0 kB, estimate=0 kB; lsn=0/82A9788, redo lsn=0/82A9788
+2026-03-05 11:55:09.290 UTC [1] LOG:  database system is shut down
+
+# 4) Conexiones y actividad de PostgreSQL 
+
+### Acceso a PostgreSQL 
+
+
