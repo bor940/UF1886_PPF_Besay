@@ -110,3 +110,27 @@ BiosSMBIOSBIOSVersion                                   : R01-B1
 BiosSMBIOSMajorVersion                                  : 3
 BiosSMBIOSMinorVersion                                  : 3
 BiosSMBIOSPresent                                       : True
+Handles  NPM(K)    PM(K)      WS(K)     CPU(s)     Id  SI ProcessName
+-------  ------    -----      -----     ------     --  -- -----------
+  10809     345   408460     610760   1.915,13  33788  24 explorer
+    485      31    85688     112660     605,20   8860  24 YouTubeDownloaderHD
+   1044      72   137500     157320     361,70   7744  24 com.docker.backend
+    630      62    27348      73808     262,14   9936  24 WINWORD
+    144      12    36068      27312     243,83  16212  24 mencoder
+    926      75    59580      94308     222,81  11104  24 FormatFactory
+    361      28    98856     138476     177,66   4508  24 Docker Desktop
+    423      34   327412     352200     148,86  22556  24 chrome
+    512      53   289108     298328     102,56  27472  24 Code
+   1860      76    94048     197728      98,33  32988  24 chrome
+   Handles  NPM(K)    PM(K)      WS(K)     CPU(s)     Id  SI ProcessName
+-------  ------    -----      -----     ------     --  -- -----------
+      0       0     3112    1353716              2056   0 Memory Compression
+  10764     344   414788     616452   1.929,08  33788  24 explorer
+      0       0  1714076     558920             18824   0 vmmemWSL
+    420      34   327472     352252     148,86  22556  24 chrome
+   1094     244   364188     318344             19472   0 MsMpEng
+    512      53   293420     302468     103,69  27472  24 Code
+   1742      61   312896     204952             35868  24 dwm
+   1859      76    93960     197644      98,42  32988  24 chrome
+    384      38   153244     168424      94,50  12452  24 Code
+   1749      73    87680     165936      16,92  39576  24 msedge
