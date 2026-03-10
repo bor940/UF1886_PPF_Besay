@@ -1,5 +1,5 @@
-# Parámetros del sistema
-### CPU, memoria y procesos activos
+# 1) Parámetros del sistema
+### 1.1 CPU, memoria y procesos activos
 Nombre de host:                            TF1-A08-PC21
 Nombre del sistema operativo:              Microsoft Windows 11 Pro
 Versión del sistema operativo:             10.0.26200 N/D Compilación 26200
@@ -134,3 +134,30 @@ Handles  NPM(K)    PM(K)      WS(K)     CPU(s)     Id  SI ProcessName
    1859      76    93960     197644      98,42  32988  24 chrome
     384      38   153244     168424      94,50  12452  24 Code
    1749      73    87680     165936      16,92  39576  24 msedge
+
+### Para memoria 
+SystemDirectory     Organization BuildNumber RegisteredUser SerialNumber            Version
+---------------     ------------ ----------- -------------- ------------            -------
+C:\WINDOWS\system32              26200       Alumno         00355-60944-71270-AAOEM 10.0.26200
+
+### Para CPU
+DeviceID Name                                           Caption                               MaxClockSpeed SocketDesignation Manufacturer
+-------- ----                                           -------                               ------------- ----------------- ------------
+CPU0     11th Gen Intel(R) Core(TM) i5-1135G7 @ 2.40GHz Intel64 Family 6 Model 140 Stepping 1 2419          U3E1              GenuineIntel
+
+# 1.2 Espacio en disco 
+
+Name           Used (GB)     Free (GB) Provider      Root                                                                                                                                        CurrentLocation
+----           ---------     --------- --------      ----                                                                                                                                        ---------------
+C                 174,23         63,60 FileSystem    C:\                                                                                                                 Users\Alumno\Documents\UF1886_PPF_Besay
+D                   6,20        231,64 FileSystem    D:\
+E                  45,89         69,58 FileSystem    E:\
+F                 103,61        827,90 FileSystem    F:\
+G                   7,47         50,25 FileSystem    G:\
+
+Caption  FreeSpace     Size
+C:       68099158016   255371243520
+D:       248587726848  255374389248
+E:       74708594688   123983589376
+F:       888953098240  1000202653696
+G:       53957951488   61976608768
